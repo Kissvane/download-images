@@ -19,7 +19,7 @@
             margin-bottom: 8px;
         }
 
-        p {
+        p.subtitle {
             text-align: center;
             color: #888;
             font-size: 14px;
@@ -29,44 +29,38 @@
         .card {
             background: white;
             border-radius: 12px;
-            padding: 14px 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
 
-        .icon {
-            font-size: 32px;
-        }
-
-        .info {
-            flex: 1;
-        }
-
-            .info strong {
+            .card img {
+                width: 100%;
                 display: block;
+                max-height: 260px;
+                object-fit: cover;
+            }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+            .card-footer strong {
                 font-size: 15px;
             }
 
-            .info span {
-                font-size: 13px;
-                color: #999;
-            }
-
-        a.btn {
-            display: inline-block;
-            padding: 8px 16px;
+        .btn {
+            padding: 10px 20px;
             background: #111;
             color: white;
+            border: none;
             border-radius: 8px;
-            text-decoration: none;
             font-size: 14px;
-        }
-
-        .hidden {
-            display: none;
+            cursor: pointer;
+            text-decoration: none;
         }
 
         .error {
@@ -77,33 +71,60 @@
 </head>
 <body>
     <h1>Mes images</h1>
-    <p>Appuie pour télécharger</p>
+    <p class="subtitle">Appuie pour télécharger</p>
     <div id="container"></div>
 
     <script>
-    const params = new URLSearchParams(window.location.search);
-    const container = document.getElementById('container');
-    const images = [params.get('img1'), params.get('img2'), params.get('img3')];
-    const labels = ['Image 1', 'Image 2', 'Image 3'];
+        const params = new URLSearchParams(window.location.search);
+        const container = document.getElementById('container');
+        const labels = ['Image 1', 'Image 2', 'Image 3'];
+        const images = [params.get('img1'), params.get('img2'), params.get('img3')];
 
-    const found = images.filter(Boolean);
+        const found = images.filter(Boolean);
 
-    if (found.length === 0) {
-      container.innerHTML = '<p class="error">Aucune image trouvée dans l\'URL.</p>';
-    } else {
-      images.forEach((url, i) => {
-        if (!url) return;
-        container.innerHTML += `
-          <div class="card">
-            <div class="icon">🖼️</div>
-            <div class="info">
-              <strong>${labels[i]}</strong>
-              <span>Appuie pour télécharger</span>
-            </div>
-            <a class="btn" href="${url}" download>↓</a>
-          </div>`;
-      });
-    }
+        if (found.length === 0) {
+            container.innerHTML = '<p class="error">Aucune image trouvée dans l\'URL.</p>';
+        } else {
+            images.forEach((url, i) => {
+                if (!url) return;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+              <img src="${url}" alt="${labels[i]}" loading="lazy" />
+              <div class="card-footer">
+                <strong>${labels[i]}</strong>
+                <button class="btn" data-url="${url}" data-name="image-${i + 1}.jpg">↓ Télécharger</button>
+              </div>`;
+                container.appendChild(card);
+            });
+
+            // Téléchargement forcé via fetch + blob
+            document.querySelectorAll('button[data-url]').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const url = btn.dataset.url;
+                    const name = btn.dataset.name;
+                    btn.textContent = '⏳ Chargement...';
+                    btn.disabled = true;
+                    try {
+                        const response = await fetch(url);
+                        const blob = await response.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = blobUrl;
+                        a.download = name;
+                        a.click();
+                        URL.revokeObjectURL(blobUrl);
+                        btn.textContent = '✓ Téléchargé';
+                    } catch (e) {
+                        // Fallback si le fetch échoue (CORS)
+                        window.open(url, '_blank');
+                        btn.textContent = '↓ Télécharger';
+                        btn.disabled = false;
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
