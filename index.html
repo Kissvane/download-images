@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Télécharger les images</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        p {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .icon {
+            font-size: 32px;
+        }
+
+        .info {
+            flex: 1;
+        }
+
+            .info strong {
+                display: block;
+                font-size: 15px;
+            }
+
+            .info span {
+                font-size: 13px;
+                color: #999;
+            }
+
+        a.btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #111;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            text-align: center;
+            color: #c00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mes images</h1>
+    <p>Appuie pour télécharger</p>
+    <div id="container"></div>
+
+    <script>
+    const params = new URLSearchParams(window.location.search);
+    const container = document.getElementById('container');
+    const images = [params.get('img1'), params.get('img2'), params.get('img3')];
+    const labels = ['Image 1', 'Image 2', 'Image 3'];
+
+    const found = images.filter(Boolean);
+
+    if (found.length === 0) {
+      container.innerHTML = '<p class="error">Aucune image trouvée dans l\'URL.</p>';
+    } else {
+      images.forEach((url, i) => {
+        if (!url) return;
+        container.innerHTML += `
+          <div class="card">
+            <div class="icon">🖼️</div>
+            <div class="info">
+              <strong>${labels[i]}</strong>
+              <span>Appuie pour télécharger</span>
+            </div>
+            <a class="btn" href="${url}" download>↓</a>
+          </div>`;
+      });
+    }
+    </script>
+</body>
+</html>
