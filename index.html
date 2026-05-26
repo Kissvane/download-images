@@ -1,130 +1,374 @@
-﻿<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Télécharger les images</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-            background: #f5f5f5;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Your Airbus aircraft livery</title>
 
-        h1 {
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 8px;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 
-        p.subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 2rem;
-        }
+  <style>
+    :root {
+      --navy:           #00205b;
+      --navy-dark:      #001846;
+      --ink:            #344054;
+      --muted:          #667085;
+      --line:           #d9e0ea;
+      --surface:        #ffffff;
+      --bg:             #f4f7fb;
+      --content-width:  1140px;
+      --header-height:  70px;
+      --radius:         10px;
+      --shadow:         0 1px 2px rgba(13,30,70,.06), 0 8px 24px rgba(13,30,70,.08);
+      --shadow-hover:   0 2px 4px rgba(13,30,70,.08), 0 18px 40px rgba(13,30,70,.18);
+    }
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            overflow: hidden;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-        }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 15px;
+      background: var(--bg);
+      color: var(--ink);
+      /* Horizontal padding moved to <body> so <main> can keep an
+         un-padded 1140 width — aligning its left edge exactly with
+         the .header-inner left edge (the navy bar is fixed and
+         ignores body padding). */
+      padding: var(--header-height) clamp(16px, 4vw, 40px) 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
 
-            .card img {
-                width: 100%;
-                display: block;
-                max-height: 260px;
-                object-fit: cover;
-            }
+    /* ---- Header ---------------------------------------------------- */
+    /* Header — ISO with the Feedback project */
+    .airbus-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 40;
+      width: 100%;
+      min-height: var(--header-height);
+      padding: 10px clamp(16px, 4vw, 40px);
+      background: var(--navy);
+      color: #fff;
+    }
+    .header-inner {
+      width: min(100%, var(--content-width));
+      min-height: calc(var(--header-height) - 20px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      gap: 20px;
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+      gap: 16px;
+      min-width: 0;
+    }
+    .brand-logo {
+      width: 106px;
+      height: auto;
+      display: block;
+      flex: 0 0 auto;
+      fill: currentColor;
+    }
+    .brand-divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(255,255,255,.78);
+    }
+    .application-name {
+      font-size: 18px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    @media (max-width: 780px) {
+      .airbus-header { padding-top: 8px; padding-bottom: 8px; }
+      .header-inner  { min-height: calc(var(--header-height) - 16px); gap: 12px; }
+      .brand-lockup  { flex: 0 1 auto; gap: 12px; }
+      .brand-logo    { width: 92px; }
+      .brand-divider { height: 24px; }
+      .application-name { font-size: 16px; }
+    }
 
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-        }
+    /* ---- Main ------------------------------------------------------ */
+    main {
+      width: min(100%, var(--content-width));
+      margin: 0 auto;
+      padding: 56px 0 64px;
+    }
 
-            .card-footer strong {
-                font-size: 15px;
-            }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+    h1 {
+      font-size: 40px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 14px;
+      letter-spacing: -0.4px;
+    }
+    .rule {
+      width: 56px;
+      height: 3px;
+      background: var(--navy);
+      border-radius: 2px;
+      margin: 0 0 28px;
+    }
+    .lead {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.55;
+      margin: 0 0 36px;
+    }
 
-        .btn {
-            padding: 10px 20px;
-            background: #111;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
-        }
+    /* ---- Grid ------------------------------------------------------ */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 900px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .grid { grid-template-columns: 1fr; } }
 
-        .error {
-            text-align: center;
-            color: #c00;
-        }
-    </style>
+    .card {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+      aspect-ratio: 4 / 3;
+      border: 0;
+      padding: 0;
+    }
+    .card:hover  { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .card:focus-visible { outline: 3px solid #6FA8FF; outline-offset: 3px; }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #EEF2F7;
+    }
+
+    /* Magnifier badge (acts as a "download" affordance). */
+    .card .badge {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+      box-shadow: 0 1px 2px rgba(0,0,0,.12);
+      transition: background .2s ease, transform .2s ease;
+    }
+    .card:hover .badge { background: #fff; transform: scale(1.05); }
+    .card .badge svg { width: 16px; height: 16px; }
+
+    /* Status overlay when downloading. */
+    .card[aria-busy="true"]::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,.55);
+    }
+
+    /* ---- Footer actions ------------------------------------------- */
+    .actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 36px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--navy);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .2px;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 26px;
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .btn:hover, .btn:focus-visible { background: var(--navy-dark); }
+    .btn[disabled] { opacity: .6; cursor: default; }
+    .btn svg { width: 16px; height: 16px; }
+
+    .footnote {
+      text-align: center;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .error {
+      background: #FFF1F1;
+      color: #8E1F1F;
+      border: 1px solid #F2C9C9;
+      padding: 16px 18px;
+      border-radius: var(--radius);
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Mes images</h1>
-    <p class="subtitle">Appuie pour télécharger</p>
-    <div id="container"></div>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const container = document.getElementById('container');
-        const labels = ['Image 1', 'Image 2', 'Image 3'];
-        const images = [params.get('img1'), params.get('img2'), params.get('img3')];
+  <header class="airbus-header" role="banner">
+    <div class="header-inner">
+      <div class="brand-lockup" aria-label="Airbus Build Your Aircraft">
+        <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 398.971 73.885" role="img" aria-hidden="true">
+          <path fill="currentColor" d="m120.15 1.5117v70.861h17.258v-55.547h19.521c7.227 0 9.8145 4.1007 9.8145 8.8457 0 4.854-2.6968 8.8438-9.9238 8.8438h-16.717l23.729 37.857h19.631s-16.179-25.453-16.07-25.453c10.032-2.372 16.502-9.3837 16.502-21.68 0-13.482-8.8443-23.729-27.072-23.729zm-28.906-7.188e-4h17.258v70.864h-17.258zm-44.114 44.114h-14.523l10.747-21.787h0.217l24.16 48.536h19.846l-36.133-70.863h-15.315l-36.133 70.863h19.414l5.853-11.864h29.093zm144.96-44.113v70.861h41.961c14.668 0 24.268-7.8737 24.268-19.846-1e-3 -8.304-4.6376-14.559-11.434-16.932 5.502-3.021 8.4141-7.8752 8.4141-14.994 0-11.433-8.5222-19.09-22.867-19.09zm17.26 14.992h23.082c3.452 0 6.1484 2.6959 6.1484 6.2559 0 3.56-2.6968 6.2559-6.2578 6.2559h-22.973zm0 26.639h23.514c4.207 0 7.4434 3.0211 7.4434 7.1191 1e-3 4.206-3.2364 7.334-7.4434 7.334h-23.514zm103.44-2.0476c0 10.756-4.962 16.718-14.776 16.718-9.707 0-14.669-5.962-14.669-16.718v-39.584h-17.688v38.29c0 21.896 11.541 34.084 32.357 34.084s32.465-12.188 32.465-34.084v-38.29h-17.689zm55.009-41.095c-18.229 0-28.477 9.0611-28.477 21.248 0 13.114 7.6533 18.442 25.238 22.219 13.69 3.018 16.609 4.9013 16.609 8.7363 0 4.166-3.7748 6.041-11.217 6.041-10.786 0-20.546-2.6193-28.365-6.9023l-5.2852 15.1c8.521 4.53 21.247 7.4434 34.082 7.4434 17.905 0 28.582-8.3067 28.582-22.221 2e-3 -11.163-7.2206-18.334-22.434-22.002-16.383-3.989-19.951-4.3696-19.951-9.0605 0-3.629 4.097-5.3945 11-5.3945 9.168 0 18.931 2.3018 24.484 5.7188l5.5-14.453c-7.118-3.775-17.58-6.4727-29.768-6.4727z"/>
+        </svg>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="application-name">Build Your Aircraft</span>
+      </div>
+    </div>
+  </header>
 
-        const found = images.filter(Boolean);
+  <main>
+    <p class="eyebrow">Your livery</p>
+    <h1>Your Airbus aircraft</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="lead">
+      Here are the three views of the aircraft you designed.
+      Tap an image to download it, or grab all three at once below.
+    </p>
 
-        if (found.length === 0) {
-            container.innerHTML = '<p class="error">Aucune image trouvée dans l\'URL.</p>';
-        } else {
-            images.forEach((url, i) => {
-                if (!url) return;
+    <section class="grid" id="grid" aria-label="Aircraft views"></section>
 
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-              <img src="${url}" alt="${labels[i]}" loading="lazy" />
-              <div class="card-footer">
-                <strong>${labels[i]}</strong>
-                <button class="btn" data-url="${url}" data-name="image-${i + 1}.jpg">↓ Télécharger</button>
-              </div>`;
-                container.appendChild(card);
-            });
+    <div class="actions">
+      <button class="btn" id="downloadAll" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download all 3 images
+      </button>
+    </div>
+    <p class="footnote">This link is private — only people you share it with can see these images.</p>
+  </main>
 
-            // Téléchargement forcé via fetch + blob
-            document.querySelectorAll('button[data-url]').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    const url = btn.dataset.url;
-                    const name = btn.dataset.name;
-                    btn.textContent = '⏳ Chargement...';
-                    btn.disabled = true;
-                    try {
-                        const response = await fetch(url);
-                        const blob = await response.blob();
-                        const blobUrl = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = blobUrl;
-                        a.download = name;
-                        a.click();
-                        URL.revokeObjectURL(blobUrl);
-                        btn.textContent = '✓ Téléchargé';
-                    } catch (e) {
-                        // Fallback si le fetch échoue (CORS)
-                        window.open(url, '_blank');
-                        btn.textContent = '↓ Télécharger';
-                        btn.disabled = false;
-                    }
-                });
-            });
+  <!-- Reusable SVG: the download badge on each card -->
+  <template id="badgeTpl">
+    <span class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </span>
+  </template>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const urls = [params.get('img1'), params.get('img2'), params.get('img3')];
+      const grid = document.getElementById('grid');
+      const downloadAllBtn = document.getElementById('downloadAll');
+
+      const present = urls.filter(Boolean);
+      if (present.length === 0) {
+        grid.innerHTML =
+          '<p class="error">No images found in the URL. Expected parameters: ?img1=...&img2=...&img3=...</p>';
+        downloadAllBtn.style.display = 'none';
+        return;
+      }
+
+      const labels = ['View 1', 'View 2', 'View 3'];
+      const badgeTpl = document.getElementById('badgeTpl').content;
+
+      urls.forEach(function (url, i) {
+        if (!url) return;
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'card';
+        card.setAttribute('aria-label', 'Download ' + labels[i]);
+        card.dataset.url = url;
+        card.dataset.name = 'airbus-aircraft-' + (i + 1) + '.jpg';
+
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = labels[i];
+        img.loading = 'lazy';
+        card.appendChild(img);
+        card.appendChild(badgeTpl.cloneNode(true));
+
+        card.addEventListener('click', function () { downloadOne(card); });
+        grid.appendChild(card);
+      });
+
+      async function downloadOne(card) {
+        const url = card.dataset.url;
+        const name = card.dataset.name;
+        card.setAttribute('aria-busy', 'true');
+        try {
+          const res = await fetch(url, { mode: 'cors' });
+          if (!res.ok) throw new Error('http ' + res.status);
+          const blob = await res.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          triggerDownload(blobUrl, name);
+          setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 1000);
+        } catch (err) {
+          // CORS / network fallback — open in a new tab.
+          window.open(url, '_blank', 'noopener');
+        } finally {
+          card.removeAttribute('aria-busy');
         }
-    </script>
+      }
+
+      function triggerDownload(href, name) {
+        const a = document.createElement('a');
+        a.href = href;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+
+      downloadAllBtn.addEventListener('click', async function () {
+        downloadAllBtn.disabled = true;
+        const originalLabel = downloadAllBtn.innerHTML;
+        downloadAllBtn.innerHTML = 'Preparing…';
+        const cards = Array.from(document.querySelectorAll('.card'));
+        for (let i = 0; i < cards.length; i++) {
+          await downloadOne(cards[i]);
+          // Small stagger so browsers don't drop concurrent downloads.
+          await new Promise(function (r) { setTimeout(r, 250); });
+        }
+        downloadAllBtn.innerHTML = originalLabel;
+        downloadAllBtn.disabled = false;
+      });
+    })();
+  </script>
 </body>
 </html>
